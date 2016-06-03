@@ -1,0 +1,20 @@
+{
+    "name": "ZendBricks/BricksCommon",
+    "description": "helpful tools for bricks applications",
+    "keywords": [
+        "php",
+        "zend",
+        "bricks"
+    ],
+    "license": "LGPL-3.0",
+    "require": {
+        "php": ">=5.6.0",
+        "zendframework/zend-form": "*",
+        "zendframework/zend-paginator": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "BricksCommon\\": "src/"
+        }
+    }
+}
