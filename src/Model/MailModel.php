@@ -35,6 +35,10 @@ class MailModel
         $this->targets[$mailAddress] = $username;
     }
     
+    public function setMailTarget(MailMessage $mail, $mailAddress, $username) {
+        $mail->setTo($mailAddress, $username);
+    }
+    
     /**
      * @return \Zend\I18n\Translator\TranslatorInterface
      */
