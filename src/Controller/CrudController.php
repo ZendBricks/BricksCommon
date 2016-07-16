@@ -3,8 +3,6 @@
 namespace BricksCommon\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Form\Form;
-use Zend\Paginator\Paginator;
 use BricksCommon\Exception\MissingImplementationException;
 
 class CrudController extends AbstractActionController
@@ -23,10 +21,14 @@ class CrudController extends AbstractActionController
     {
         $form = $this->getForm();
         if ($this->getRequest()->isPost()) {
-            $form->setData($this->getPost());
-            if ($form->validate()) {
-                $this->save($form->getData());
-                return $this->getListRedirect();
+            $form->setData($this->getRequest()->getPost());
+            if ($form->isValid()) {
+                if ($this->save($form->getData())) {
+                    $this->flashMessenger()->addSuccessMessage('save.success');
+                    return $this->getListRedirect();
+                } else {
+                    $this->flashMessenger()->addErrorMessage('save.failed');
+                }
             }
         }
         return [
@@ -45,10 +47,21 @@ class CrudController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
         $form = $this->getForm();
         if ($this->getRequest()->isPost()) {
-            $form->setData($this->getPost());
-            if ($form->validate()) {
-                $this->save($form->getData(), $id);
-                return $this->getListRedirect();
+            $form->setData($this->getRequest()->getPost());
+            if ($form->isValid()) {
+                if ($this->save($form->getData(), $id)) {
+                    $this->flashMessenger()->addSuccessMessage('edit.success');
+                    return $this->getListRedirect();
+                } else {
+                    $this->flashMessenger()->addErrorMessage('edit.failed');
+                }
+            }
+        } else {
+            $formData = $this->getData($id);
+            if ($formData) {
+                $form->setData($this->getData($id));
+            } else {
+                $this->flashMessenger()->addErrorMessage('not.found');
             }
         }
         return [
@@ -61,10 +74,14 @@ class CrudController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
         $form = $this->getDeleteForm();
         if ($this->getRequest()->isPost()) {
-            $form->setData($this->getPost());
-            if ($form->validate()) {
-                $this->deleteById($id);
-                return $this->getListRedirect();
+            $form->setData($this->getRequest()->getPost());
+            if ($form->isValid()) {
+                if ($this->deleteById($id)) {
+                    $this->flashMessenger()->addSuccessMessage('delete.success');
+                    return $this->getListRedirect();
+                } else {
+                    $this->flashMessenger()->addErrorMessage('delete.failed');
+                }
             }
         }
         return [
@@ -79,22 +96,25 @@ class CrudController extends AbstractActionController
 
     protected function getForm()
     {
-        throw new Exception('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
+        throw new MissingImplementationException('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
     }
 
     protected function getListRedirect()
     {
-        throw new Exception('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
+        throw new MissingImplementationException('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
     }
 
     protected function getById($id)
     {
-        throw new Exception('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
+        throw new MissingImplementationException('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
     }
 
+    /**
+     * @return \Zend\Paginator\Paginator
+     */
     protected function getListPaginator()
     {
-        throw new Exception('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
+        throw new MissingImplementationException('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
     }
 
     /**
@@ -103,11 +123,16 @@ class CrudController extends AbstractActionController
      */
     protected function save($data, $id = null)
     {
-        throw new Exception('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
+        throw new MissingImplementationException('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
+    }
+    
+    protected function getData($id)
+    {
+        throw new MissingImplementationException('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
     }
 
     protected function deleteById($id)
     {
-        throw new Exception('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
+        throw new MissingImplementationException('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
     }
 }

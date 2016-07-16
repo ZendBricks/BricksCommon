@@ -3,6 +3,7 @@
 namespace BricksCommon\Form;
 
 use Zend\Form\Form;
+use Zend\Form\Element\Submit;
 
 class DeleteForm extends Form
 {
