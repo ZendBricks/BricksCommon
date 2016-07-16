@@ -13,6 +13,7 @@ class DeleteForm extends Form
         $this->setAttribute('method', 'post');
 
         $submit = new Submit('delete');
+        $submit->setAttribute('class', 'btn btn-danger');
         $submit->setValue('Delete');
         $this->add($submit);
     }
