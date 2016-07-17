@@ -1,6 +1,6 @@
 <?php
 
-namespace BricksCommon\Exception;
+namespace ZendBricks\BricksCommon\Exception;
 
 class MissingImplementationException extends \Exception
 {

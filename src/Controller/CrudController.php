@@ -1,9 +1,9 @@
 <?php
 
-namespace BricksCommon\Controller;
+namespace ZendBricks\BricksCommon\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use BricksCommon\Exception\MissingImplementationException;
+use ZendBricks\BricksCommon\Exception\MissingImplementationException;
 
 class CrudController extends AbstractActionController
 {

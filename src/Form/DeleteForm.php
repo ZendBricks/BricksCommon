@@ -1,6 +1,6 @@
 <?php
 
-namespace BricksCommon\Form;
+namespace ZendBricks\BricksCommon\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element\Submit;

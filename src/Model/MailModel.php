@@ -1,6 +1,6 @@
 <?php
 
-namespace BricksCommon\Model;
+namespace ZendBricks\BricksCommon\Model;
 
 use Zend\View\Renderer\RendererInterface;
 use Zend\Mail\Transport\Factory;
