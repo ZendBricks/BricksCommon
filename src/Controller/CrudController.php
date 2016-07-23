@@ -4,6 +4,7 @@ namespace ZendBricks\BricksCommon\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use ZendBricks\BricksCommon\Exception\MissingImplementationException;
+use ZendBricks\BricksCommon\Form\DeleteForm;
 
 class CrudController extends AbstractActionController
 {
@@ -23,7 +24,9 @@ class CrudController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
             if ($form->isValid()) {
-                if ($this->save($form->getData())) {
+                $formData = $form->getData();
+                if ($this->save($formData)) {
+                    $this->onCreateSuccess($formData);
                     $this->flashMessenger()->addSuccessMessage('save.success');
                     return $this->getListRedirect();
                 } else {
@@ -49,7 +52,9 @@ class CrudController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
             if ($form->isValid()) {
-                if ($this->save($form->getData(), $id)) {
+                $formData = $form->getData();
+                if ($this->save($formData, $id)) {
+                    $this->onEditSuccess($formData);
                     $this->flashMessenger()->addSuccessMessage('edit.success');
                     return $this->getListRedirect();
                 } else {
@@ -77,6 +82,7 @@ class CrudController extends AbstractActionController
             $form->setData($this->getRequest()->getPost());
             if ($form->isValid()) {
                 if ($this->deleteById($id)) {
+                    $this->onDeleteSuccess();
                     $this->flashMessenger()->addSuccessMessage('delete.success');
                     return $this->getListRedirect();
                 } else {
@@ -91,7 +97,7 @@ class CrudController extends AbstractActionController
     
     protected function getDeleteForm()
     {
-        return new \BricksCommon\Form\DeleteForm();
+        return new DeleteForm();
     }
 
     protected function getForm()
@@ -134,5 +140,26 @@ class CrudController extends AbstractActionController
     protected function deleteById($id)
     {
         throw new MissingImplementationException('Missing implementation for ' . __METHOD__ . ' in ' . self::class);
+    }
+    
+    /**
+     * Event to override
+     */
+    protected function onCreateSuccess(array $formData) {
+        
+    }
+    
+    /**
+     * Event to override
+     */
+    protected function onEditSuccess(array $formData) {
+        
+    }
+    
+    /**
+     * Event to override
+     */
+    protected function onDeleteSuccess() {
+        
     }
 }
