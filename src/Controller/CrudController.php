@@ -8,6 +8,8 @@ use ZendBricks\BricksCommon\Form\DeleteForm;
 
 class CrudController extends AbstractActionController
 {
+    const ITEMS_PER_PAGE = 20;
+    
     public function listAction()
     {
         $page = $this->params()->fromRoute('page');
@@ -64,7 +66,7 @@ class CrudController extends AbstractActionController
         } else {
             $formData = $this->getData($id);
             if ($formData) {
-                $form->setData($this->getData($id));
+                $form->setData($formData);
             } else {
                 $this->flashMessenger()->addErrorMessage('not.found');
             }
