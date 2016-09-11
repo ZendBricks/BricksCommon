@@ -2,9 +2,9 @@
 
 namespace ZendBricks\BricksCommon\Model;
 
-use Zend\Captcha\Image;
+use Zend\Captcha\Image as ZendCaptchaImage;
 
-class Image extends Image
+class Image extends ZendCaptchaImage
 {
     protected function generateImage($id, $word)
     {
